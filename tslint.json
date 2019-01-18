@@ -1,0 +1,26 @@
+{
+    "defaultSeverity": "error",
+    "extends": [
+        "tslint:recommended"
+    ],
+    "jsRules": {},
+    "rules": {
+        "object-literal-sort-keys": false,
+        "no-var-requires": false,
+        "typedef-whitespace": false,
+        "member-ordering": false,
+        "no-empty": false,
+        "interface-name": false,
+        "max-classes-per-file": false,
+        "triple-equals": false,
+        "variable-name": {
+            "severity": "warning",
+            "options": [
+                "allow-leading-underscore",
+                "allow-pascal-case"
+            ]
+        },
+        "no-unused-expression": [true, "allow-fast-null-checks"]
+    },
+    "rulesDirectory": []
+}

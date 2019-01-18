@@ -1,0 +1,95 @@
+fastlane_version "1.111.0"
+
+platform :android do
+  desc "Runs all the tests"
+  lane :test do
+    gradle(task: "test")
+  end
+
+  desc "Build signed, release version of application with all developement features."
+  lane :testfairy do |options|
+    gradle(
+      task: "assembleRelease",
+      project_dir: "android/",
+      print_command: true
+    )
+
+    if File.directory?("../build") == false
+      Dir.mkdir("../build")
+    end
+
+    sign_apk(
+      keystore_path: "android/app/release.keystore",
+      alias: "my-key-alias",
+      storepass: "B10nd01988",
+      keypass: "B10nd01988",
+      signed_apk_path: "build/kitchenAid-release.apk",
+      tsa: "http://timestamp.comodoca.com/rfc316"
+    )
+
+    zipalign(apk_path: "build/kitchenAid-release.apk")
+    File.delete("../build/kitchenAid-release-unaligned.apk")
+  end
+
+  desc "Unsigned version of app, with some features disabled. Prepared for customer to sign and realease."
+  lane :customer_release do |options|
+    sh "../set-build-config.sh ENV_SWITCHING_ENABLED=false"
+    sh "npm run build" # Update transpiled files
+    gradle(
+      task: "assembleRelease",
+      project_dir: "android/",
+      print_command: true
+    )
+
+    if File.directory?("../build-other") == false
+      Dir.mkdir("../build-other")
+    end
+
+    File.rename("../android/app/build/outputs/apk/release/app-release-unsigned.apk", "../build-other/kitchenAid-release-unsigned.apk")
+  end
+
+  error do |lane, exception|
+    puts "Error #{exception.message}"
+  end
+end
+
+platform :ios do
+  desc "Runs all the tests"
+  lane :test do
+    scan
+  end
+
+  desc "Default app"
+  lane :default do |options|
+    provision = "KitchenAid"
+    id = "com.reply.KitchenAid"
+
+    build(id: id, provision: provision)
+  end
+
+  desc "Build & sign application"
+  private_lane :build do |options|
+    xcversion(version: "9.2")
+    cert(
+      username: 'connect.ios@reply.it',
+      team_id: '3K2PHQFSVN'
+    )
+    sigh(
+      username: 'connect.ios@reply.it',
+      team_id: '3K2PHQFSVN',
+      app_identifier: options[:id],
+      provisioning_name: options[:provision],
+      adhoc: true
+    )
+    xcode_select "/Applications/Xcode-9.2.app"
+    gym(
+      project: "ios/AppKitchenAid.xcodeproj",
+      clean: true,
+      codesigning_identity: "iPhone Distribution: Alessio Durando (3K2PHQFSVN)"
+    )
+  end
+
+  error do |lane, exception|
+    puts "Error #{exception.message}"
+  end
+end

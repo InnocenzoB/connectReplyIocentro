@@ -1,0 +1,99 @@
+{
+	"name": "AppKitchenAid",
+	"version": "0.0.1",
+	"private": true,
+	"scripts": {
+		"initializes": "npm install && gulp build",
+		"metro": "react-native start  --reset-cache",
+		"cleanProject": "rm -rf $TMPDIR/react-*; rm -rf $TMPDIR/haste-*; rm -rf $TMPDIR/metro-*; watchman watch-del-all",
+		"build": "gulp build",
+		"watch": "gulp watch",
+		"clean": "gulp clean",
+		"tslint": "gulp tslint",
+		"fix": "gulp tslint --fix",
+		"start": "node node_modules/react-native/local-cli/cli.js start",
+		"postinstall": "gulp postinstall",
+		"test": "jest"
+	},
+	"dependencies": {
+		"iocentro-apps-common-bits": "git+ssh://git@github.com/InnocenzoB/iocentro-apps-common-bits.git",
+		"iocentro-collection-manager": "git+ssh://git@github.com/InnocenzoB/iocentro-collection-manager.git",
+		"iocentro-connectivity": "git+ssh://git@github.com/InnocenzoB/iocentro-connectivity.git",
+		"iocentro-datamodel": "git+ssh://git@github.com/InnocenzoB/iocentro-datamodel.git",
+		"iocentro-patched-react-native-bgimage": "git+ssh://git@github.com/InnocenzoB/iocentro-patched-react-native-bgimage.git",
+		"iocentro-patched-wampy": "git+ssh://git@github.com/InnocenzoB/iocentro-patched-wampy.git",
+		"iocentro-toolkit": "git+ssh://git@github.com/InnocenzoB/iocentro-toolkit.git",
+		"iocentro-wamp": "git+ssh://git@github.com/InnocenzoB/iocentro-wamp.git",
+		"iocentro-whp-oob-connectivity": "git+ssh://git@github.com/InnocenzoB/iocentro-whp-oob-connectivity.git",
+		"iocentro-whp-p2p": "git+ssh://git@github.com/InnocenzoB/iocentro-whp-p2p.git",
+		"react": "^16.3.1",
+		"react-native": "^0.55.3",
+		"react-native-blur": "^3.2.0",
+		"react-native-calendars": "^1.15.0",
+		"react-native-camera": "^0.13.0",
+		"react-native-device-info": "^0.13.0",
+		"react-native-i18n": "^2.0.10",
+		"react-native-keyboard-aware-scroll-view": "^0.3.0",
+		"react-native-linear-gradient": "^2.3.0",
+		"react-native-modal": "^4.0.0",
+		"react-native-orientation": "^3.1.0",
+		"react-native-prompt-android": "^0.3.3",
+		"react-native-sensitive-info": "5.2.4",
+		"react-native-snap-carousel": "^3.3.4",
+		"react-native-svg": "^6.0.0",
+		"react-native-tabs": "^1.0.9",
+		"react-native-testfairy": "^2.15.1",
+		"react-native-video": "^2.0.0",
+		"react-native-wheel-picker": "^1.2.0",
+		"react-native-zeroconf": "^0.8.3",
+		"react-navigation": "^1.0.0",
+		"underscore": "^1.8.3",
+		"xdate": "^0.8.2"
+	},
+	"devDependencies": {
+		"@types/jest": "^21.1.2",
+		"@types/react": "^16.0.9",
+		"@types/react-native": "^0.49.0",
+		"@types/react-native-snap-carousel": "^3.6.2",
+		"@types/react-native-video": "^2.0.0",
+		"@types/react-navigation": "^1.0.30",
+		"babel-jest": "21.2.0",
+		"babel-preset-env": "1.6.1",
+		"babel-preset-react-native": "4.0.0",
+		"gulp": "^3.9.1",
+		"gulp-shell": "^0.6.3",
+		"gulp-sourcemaps": "^2.6.1",
+		"gulp-tslint": "^8.1.2",
+		"gulp-typescript": "^3.2.2",
+		"jest": "21.2.1",
+		"react-test-renderer": "16.0.0-beta.5",
+		"ts-jest": "^21.1.0",
+		"tslint": "^5.8.0",
+		"typescript": "^2.6.2",
+		"yargs": "^10.0.3"
+	},
+	"jest": {
+		"preset": "react-native",
+		"moduleFileExtensions": [
+			"ts",
+			"tsx",
+			"js"
+		],
+		"transform": {
+			"^.+\\.(js)$": "<rootDir>/node_modules/babel-jest",
+			"\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+		},
+		"testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+		"testPathIgnorePatterns": [
+			"\\.snap$",
+			"<rootDir>/node_modules/",
+			"<rootDir>/lib/"
+		],
+		"cacheDirectory": ".jest/cache"
+	},
+	"rnpm": {
+		"assets": [
+			"assets/fonts"
+		]
+	}
+}
